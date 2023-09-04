@@ -42,8 +42,11 @@ export default function useKeyRecords() {
     const id = updateRef.current;
 
     nextSlice(() => {
+      // 这里利用 closure 保存 id，如果中途有新的 registerPath，会导致 id 不一致，从而不会触发 forceUpdate
       if (id === updateRef.current) {
         forceUpdate();
+        console.log(key2pathRef);
+
       }
     });
   }, []);

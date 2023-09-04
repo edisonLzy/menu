@@ -186,6 +186,7 @@ const InternalSubMenu = (props: SubMenuProps) => {
   // =============================== Events ===============================
   // >>>> Title click
   const onInternalTitleClick: React.MouseEventHandler<HTMLElement> = e => {
+
     // Skip if disabled
     if (mergedDisabled) {
       return;
@@ -198,6 +199,7 @@ const InternalSubMenu = (props: SubMenuProps) => {
 
     // Trigger open by click when mode is `inline`
     if (mode === 'inline') {
+      // inline 模式点击title 展开 SubMenu
       onOpenChange(eventKey, !originOpen);
     }
   };
@@ -275,9 +277,11 @@ const InternalSubMenu = (props: SubMenuProps) => {
     // Still wrap with Trigger here since we need avoid react re-mount dom node
     // Which makes motion failed
     titleNode = (
+      //🔥 嵌套的 SubMenu 通过 Trigger 来触发
       <PopupTrigger
         mode={triggerMode}
         prefixCls={subMenuPrefixCls}
+        // inline model 不显示 trigger
         visible={!internalPopupClose && open && mode !== 'inline'}
         popupClassName={popupClassName}
         popupOffset={popupOffset}
@@ -295,6 +299,7 @@ const InternalSubMenu = (props: SubMenuProps) => {
         disabled={mergedDisabled}
         onVisibleChange={onPopupVisibleChange}
       >
+        {/* title作为trigger */}
         {titleNode}
       </PopupTrigger>
     );
@@ -321,6 +326,7 @@ const InternalSubMenu = (props: SubMenuProps) => {
       onMouseEnter={onInternalMouseEnter}
       onMouseLeave={onInternalMouseLeave}
     >
+      {/* inline mode 不显示 trigger */}
       {titleNode}
 
       {/* Inline mode */}
@@ -358,6 +364,7 @@ export default function SubMenu(props: SubMenuProps) {
   const { eventKey, children } = props;
 
   const connectedKeyPath = useFullPath(eventKey);
+
   const childList: React.ReactElement[] = parseChildren(
     children,
     connectedKeyPath,
@@ -387,6 +394,7 @@ export default function SubMenu(props: SubMenuProps) {
   }
 
   return (
+    // 🔥 PathTrackerContext.Provider 用于记录子节点的 keyPath
     <PathTrackerContext.Provider value={connectedKeyPath}>
       {renderNode}
     </PathTrackerContext.Provider>

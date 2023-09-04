@@ -203,10 +203,12 @@ function Demo() {
   );
 
   const verticalMenu = (
-    <CommonMenu mode="vertical" defaultMotions={motionMap} />
+    // defaultMotions: 为每一种 mode 定义 motion
+    <CommonMenu mode="vertical" defaultMotions={motionMap} multiple />
   );
 
   const inlineMenu = (
+    // motion: 针对于当前 mode 的 motion
     <CommonMenu mode="inline" defaultOpenKeys={['1']} motion={inlineMotion} />
   );
 

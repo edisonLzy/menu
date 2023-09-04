@@ -6,37 +6,14 @@ import '../../assets/index.less';
 
 export default () => (
   <Menu
+    selectable
+    multiple
+    triggerSubMenuAction='click'
     items={[
       {
         // MenuItem
         label: 'Top Menu Item',
         key: 'top',
-      },
-      {
-        // MenuGroup
-        type: 'group',
-        label: 'Top Menu Group without children',
-      },
-      {
-        // MenuGroup
-        type: 'group',
-        label: 'Top Menu Group with children',
-        children: [
-          {
-            // MenuItem
-            label: 'Menu Item 1',
-            key: 'inner1',
-          },
-          {
-            // Divider
-            type: 'divider',
-          },
-          {
-            // MenuItem
-            label: 'Menu Item 2',
-            key: 'inner2',
-          },
-        ],
       },
       {
         // SubMenu
@@ -48,7 +25,6 @@ export default () => (
             label: 'Menu Item 1-1',
             key: 'inner11',
           },
-
           {
             // SubMenu
             label: 'SubMenu inner',

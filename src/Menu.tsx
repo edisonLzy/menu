@@ -86,6 +86,7 @@ export interface MenuProps
   selectedKeys?: string[];
 
   onSelect?: SelectEventHandler;
+  // only called when allow multiple
   onDeselect?: SelectEventHandler;
 
   // Level
@@ -116,6 +117,7 @@ export interface MenuProps
 
   // >>>>> Events
   onClick?: MenuClickEventHandler;
+  // called when open/close sub menu
   onOpenChange?: (openKeys: string[]) => void;
 
   // >>>>> Internal
@@ -561,7 +563,7 @@ const Menu = React.forwardRef<MenuRef, MenuProps>((props, ref) => {
       renderRawRest={omitItems => {
         // We use origin list since wrapped list use context to prevent open
         const len = omitItems.length;
-
+        //  childList.slice(-len) 获取倒数的几项
         const originOmitItems = len ? childList.slice(-len) : null;
 
         return (

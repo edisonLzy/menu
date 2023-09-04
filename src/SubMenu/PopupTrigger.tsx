@@ -40,6 +40,7 @@ export default function PopupTrigger({
   mode,
   onVisibleChange,
 }: PopupTriggerProps) {
+
   const {
     getPopupContainer,
     rtl,

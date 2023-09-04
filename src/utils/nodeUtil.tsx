@@ -16,6 +16,7 @@ function convertItemsToNodes(list: ItemType[]) {
 
         // MenuItemGroup & SubMenuItem
         if (children || type === 'group') {
+          // children 存在或者 为 group
           if (type === 'group') {
             // Group
             return (
@@ -25,7 +26,7 @@ function convertItemsToNodes(list: ItemType[]) {
             );
           }
 
-          // Sub Menu
+          // Sub Menu children
           return (
             <SubMenu key={mergedKey} {...restProps} title={label}>
               {convertItemsToNodes(children)}

@@ -254,6 +254,7 @@ function MenuItem(
   props: MenuItemProps,
   ref: React.Ref<HTMLElement>,
 ): React.ReactElement {
+  // props'key ?? tmp_key
   const { eventKey } = props;
 
   // ==================== Record KeyPath ====================

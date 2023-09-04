@@ -36,6 +36,7 @@ export default function InlineSubMenuList({
   // The inline list should remove when motion end.
   const [destroy, setDestroy] = React.useState(!sameModeRef.current);
 
+  //🔥  mode !== inline, we should always hide inline list
   const mergedOpen = sameModeRef.current ? open : false;
 
   // ================================= Effect =================================
@@ -71,6 +72,7 @@ export default function InlineSubMenuList({
   return (
     <MenuContextProvider mode={fixedMode} locked={!sameModeRef.current}>
       <CSSMotion
+        // 如果 mode !== inline, mergedOpen 为 false, 会导致 CSSMotion 不渲染
         visible={mergedOpen}
         {...mergedMotion}
         forceRender={forceSubMenuRender}
