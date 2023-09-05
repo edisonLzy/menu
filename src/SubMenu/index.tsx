@@ -123,7 +123,9 @@ const InternalSubMenu = (props: SubMenuProps) => {
   const mergedExpandIcon = expandIcon || contextExpandIcon;
 
   // ================================ Open ================================
+  // 🔥: 根据openKeys 来判断是否展开
   const originOpen = openKeys.includes(eventKey);
+
   const open = !overflowDisabled && originOpen;
 
   // =============================== Select ===============================
@@ -213,6 +215,7 @@ const InternalSubMenu = (props: SubMenuProps) => {
   // >>>>> Visible change
   const onPopupVisibleChange = (newVisible: boolean) => {
     if (mode !== 'inline') {
+      // 🔥 触发更新 openKeys的逻辑
       onOpenChange(eventKey, newVisible);
     }
   };
@@ -297,6 +300,7 @@ const InternalSubMenu = (props: SubMenuProps) => {
           </MenuContextProvider>
         }
         disabled={mergedDisabled}
+        // 用户点击 titleNode 的时候, 会触发 onPopupVisibleChange
         onVisibleChange={onPopupVisibleChange}
       >
         {/* title作为trigger */}

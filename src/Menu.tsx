@@ -469,6 +469,7 @@ const Menu = React.forwardRef<MenuRef, MenuProps>((props, ref) => {
     let newOpenKeys = mergedOpenKeys.filter(k => k !== key);
 
     if (open) {
+      // 🔥 将需要展开的key添加到openKeys中
       newOpenKeys.push(key);
     } else if (internalMode !== 'inline') {
       // We need find all related popup to close
