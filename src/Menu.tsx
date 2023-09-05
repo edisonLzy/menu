@@ -550,6 +550,7 @@ const Menu = React.forwardRef<MenuRef, MenuProps>((props, ref) => {
         `${prefixCls}-${internalMode}`,
         className,
         {
+          // 这个属性并没有做任务出 ?
           [`${prefixCls}-inline-collapsed`]: internalInlineCollapsed,
           [`${prefixCls}-rtl`]: isRtl,
         },
