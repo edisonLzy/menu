@@ -129,6 +129,7 @@ const InternalSubMenu = (props: SubMenuProps) => {
   const open = !overflowDisabled && originOpen;
 
   // =============================== Select ===============================
+  // 点击menuItem的时候会更新 selectedKeys 从而触发 SubMenu更新
   const childrenSelected = isSubPathKey(selectedKeys, eventKey);
 
   // =============================== Active ===============================

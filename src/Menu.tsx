@@ -418,6 +418,7 @@ const Menu = React.forwardRef<MenuRef, MenuProps>((props, ref) => {
   );
 
   // >>>>> Trigger select
+  // 🔥 更新 mergedSelectKeys(context上的selectKeys)
   const triggerSelection = (info: MenuInfo) => {
     if (selectable) {
       // Insert or Remove

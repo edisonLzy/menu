@@ -12,7 +12,10 @@ class Test extends React.Component {
 
   getMenu() {
     return (
-      <Menu onClick={this.onClick} mode="inline">
+      <Menu
+      multiple
+      selectable={false}
+      onClick={this.onClick} mode="inline">
         <SubMenu key="1" title="submenu1">
           <MenuItem key="1-1">item1-1</MenuItem>
           <MenuItem key="1-2">item1-2</MenuItem>

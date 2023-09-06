@@ -63,9 +63,11 @@ export default function useKeyRecords() {
 
   const getKeyPath = useCallback(
     (eventKey: string, includeOverflow?: boolean) => {
+      // 获取 eventKey 的 fullPath
+      // [2-3-1]-> [2,2-3,2-3-1]
       const fullPath = key2pathRef.current.get(eventKey) || '';
       const keys = getPathKeys(fullPath);
-
+      // 这个用来高亮 更多按钮吗 ?
       if (includeOverflow && overflowKeys.includes(keys[0])) {
         keys.unshift(OVERFLOW_KEY);
       }
@@ -74,12 +76,15 @@ export default function useKeyRecords() {
     },
     [overflowKeys],
   );
-
+  // 🔥 判断 pathKeys 是否是 eventKey 的子路径
+  // [2-3-1] <- [2-3] <- [2]
   const isSubPathKey = useCallback(
     (pathKeys: string[], eventKey: string) =>
-      pathKeys.some(pathKey => {
+    pathKeys.some(pathKey => {
+        // 获取点击 key 的 fullPath
         const pathKeyList = getKeyPath(pathKey, true);
-
+        // 判断 fullPath 中是否包含 eventKey
+        // 比如 是否包含 SubMenu 的 eventKey用于高亮
         return pathKeyList.includes(eventKey);
       }),
     [getKeyPath],
