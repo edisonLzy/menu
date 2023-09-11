@@ -7,7 +7,12 @@ import '../../assets/index.less';
 
 const children = [];
 for (let i = 0; i < 20; i += 1) {
-  children.push(<MenuItem key={String(i)}>{i}</MenuItem>);
+
+  children.push(<MenuItem
+     key={String(i)}
+     // disabled 的时候 li.rc-menu-item 不会有 tabIndex，因此其是不可以聚焦的
+     disabled={i === 1}
+     >{i}</MenuItem>);
 }
 
 const menuStyle = {

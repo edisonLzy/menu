@@ -562,6 +562,9 @@ const Menu = React.forwardRef<MenuRef, MenuProps>((props, ref) => {
       role="menu"
       tabIndex={tabIndex}
       data={wrappedChildList}
+      // 直接渲染data中的React元素
+      // 理论上传递了 renderRawItem 就不会再使用到 itemComponent
+      // 不清楚这里为啥都会传递
       renderRawItem={node => node}
       renderRawRest={omitItems => {
         // We use origin list since wrapped list use context to prevent open

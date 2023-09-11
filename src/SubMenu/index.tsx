@@ -315,6 +315,7 @@ const InternalSubMenu = (props: SubMenuProps) => {
     <Overflow.Item
       role="none"
       {...restProps}
+      // SubMenu将渲染成一个li
       component="li"
       style={style}
       className={classNames(

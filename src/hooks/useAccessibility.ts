@@ -72,7 +72,7 @@ function getOffset(
         offset: -1,
         sibling: true,
       };
-
+    // pageDown会触发next
     case next:
       return {
         offset: 1,
@@ -138,6 +138,8 @@ function getFocusableElements(
   container: HTMLElement,
   elements: Set<HTMLElement>,
 ) {
+  // 获取 container 下所有可聚焦元素
+  // includePositive 表示是否包含 tabIndex < 0 的元素
   const list = getFocusNodeList(container, true);
   return list.filter(ele => elements.has(ele));
 }
@@ -154,6 +156,7 @@ function getNextFocusElement(
   }
 
   // List current level menu item elements
+  // 重新获取一次聚焦元素 ,这里会过滤掉 disabled 元素
   const sameLevelFocusableMenuElementList = getFocusableElements(
     parentQueryContainer,
     elements,
@@ -174,7 +177,7 @@ function getNextFocusElement(
   } else if (offset > 0) {
     focusIndex += 1;
   }
-
+  // 防止越界
   focusIndex = (focusIndex + count) % count;
 
   // Focus menu item
@@ -275,6 +278,7 @@ export default function useAccessibility<T extends HTMLElement>(
           // Focus to link instead of menu item if possible
           const link = menuElement.querySelector('a');
           if (link?.getAttribute('href')) {
+            // 如果menuItem中有 a标签,则聚焦到 a标签上
             focusTargetElement = link;
           }
 
@@ -289,6 +293,7 @@ export default function useAccessibility<T extends HTMLElement>(
           cleanRaf();
           rafRef.current = raf(() => {
             if (activeRef.current === targetKey) {
+              // preventScroll 不为 true 时，浏览器会自动滚动到焦点元素
               focusTargetElement.focus();
             }
           });
@@ -306,17 +311,21 @@ export default function useAccessibility<T extends HTMLElement>(
         if (!focusMenuElement || mode === 'inline') {
           parentQueryContainer = containerRef.current;
         } else {
+          // 找到最近的父级 ul
           parentQueryContainer = findContainerUL(focusMenuElement);
         }
 
         // Get next focus element
         let targetElement;
+        // 获取所有的可聚焦元素, 不会包含disabled 元素
         const focusableElements = getFocusableElements(
           parentQueryContainer,
           elements,
         );
+        // HOME: fn + left on mac 会定位到第一个元素
         if (which === HOME) {
           targetElement = focusableElements[0];
+          // END: fn + right on mac 会定位到最后一个元素
         } else if (which === END) {
           targetElement = focusableElements[focusableElements.length - 1];
         } else {

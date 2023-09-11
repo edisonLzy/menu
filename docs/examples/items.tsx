@@ -9,6 +9,7 @@ export default () => (
     selectable
     multiple
     triggerSubMenuAction='click'
+    defaultOpenKeys={['sub1-1']}
     items={[
       {
         // MenuItem
